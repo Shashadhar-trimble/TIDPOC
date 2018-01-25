@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TIDApp/TIDApp.iml" filepath="$PROJECT_DIR$/TIDApp/TIDApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TIDPOC.iml" filepath="$PROJECT_DIR$/TIDPOC.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_bg"
+        android:focusableInTouchMode="true"
+        android:gravity="fill"
+        android:keepScreenOn="true"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:fillViewport="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            tools:ignore="InefficientWeight">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                tools:ignore="ScrollViewSize">
+
+                <LinearLayout
+                    android:id="@+id/loginContents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:fontFamily="sans-serif"
+                            android:gravity="center_horizontal"
+                            android:imeOptions="flagNoExtractUi"
+                            android:singleLine="false"
+                            android:textColor="@android:color/white"
+                            android:textCursorDrawable="@null"
+                            android:textSize="@dimen/general_button_text_size"
+                            tools:text="Welcome\n shashadhar_das@trimble.com"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_button_spacing" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_button_spacing" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/accessTokenLbl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:fontFamily="sans-serif"
+                            android:singleLine="true"
+                            android:text="Access Token"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/general_button_text_size" />
+
+                        <TextView
+                            android:id="@+id/accessToken"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/login_edit_text_height"
+                            android:layout_weight="2"
+                            android:background="@android:color/white"
+                            android:ems="10"
+                            android:enabled="false"
+                            android:fontFamily="sans-serif"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:gravity="center"
+                            android:hint="Access Token"
+                            android:imeOptions="flagNoExtractUi"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="@dimen/general_button_text_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_button_spacing" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/refreshTokenLbl"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ems="10"
+                            android:fontFamily="sans-serif"
+                            android:singleLine="true"
+                            android:text="Refresh Token"
+                            android:textColor="@android:color/white"
+                            android:textSize="@dimen/general_button_text_size" />
+
+                        <TextView
+                            android:id="@+id/refreshToken"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/login_edit_text_height"
+                            android:layout_weight="2"
+                            android:background="@android:color/white"
+                            android:ellipsize="marquee"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:ems="10"
+                            android:fontFamily="sans-serif"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:hint="Refresh Token"
+                            android:imeOptions="flagNoExtractUi"
+                            android:singleLine="true"
+                            android:textColor="@android:color/black"
+                            android:textCursorDrawable="@null"
+                            android:textSize="@dimen/general_button_text_size"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/login_button_spacing" />
+
+                    <LinearLayout
+                        android:id="@+id/login_fragment_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/login_button_container"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
+
+                        <Button
+                            android:id="@+id/login"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/login_edit_text_height"
+                            android:background="@android:color/white"
+                            android:text="Refresh"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/general_button_text_size" />
+
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/login_button_spacing" />
+
+                        <Button
+                            android:id="@+id/logout"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/login_edit_text_height"
+                            android:background="@android:color/white"
+                            android:text="Logout"
+                            android:textAllCaps="false"
+                            android:textSize="@dimen/general_button_text_size" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>
