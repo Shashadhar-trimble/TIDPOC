@@ -33,6 +33,11 @@ public interface HomeContract {
          * @param loginResponse loginResponse
          */
         void setUserInfo(LoginResponse loginResponse);
+
+        /**
+         * Launch login activity
+         */
+        void launchLoginActivity();
     }
 
     /**
@@ -47,6 +52,14 @@ public interface HomeContract {
          * @param refreshToken refresh token
          */
         void refreshAccessToken(String refreshToken);
+
+        /**
+         * Logs out user
+         *
+         * @param accessToken access token of the user
+         */
+
+        void logoutUser(String accessToken);
     }
 
 }

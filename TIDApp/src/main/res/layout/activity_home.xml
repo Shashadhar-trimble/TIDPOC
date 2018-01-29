@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-
+    <!--root layout-->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -11,52 +11,56 @@
         android:keepScreenOn="true"
         android:orientation="vertical">
 
+        <!--scroll view for contents-->
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0"
             android:fillViewport="true"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             tools:ignore="InefficientWeight">
 
+            <!--scroll view root layout-->
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:orientation="vertical"
                 tools:ignore="ScrollViewSize">
 
+                <!--login contents layout-->
                 <LinearLayout
                     android:id="@+id/loginContents"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center_vertical"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UselessParent">
 
+                    <!--welcome layout-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <!--email textView-->
                         <TextView
                             android:id="@+id/email"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ellipsize="marquee"
-                            android:marqueeRepeatLimit="marquee_forever"
                             android:ems="10"
                             android:enabled="false"
                             android:fontFamily="sans-serif"
                             android:gravity="center_horizontal"
-                            android:imeOptions="flagNoExtractUi"
+                            android:marqueeRepeatLimit="marquee_forever"
                             android:singleLine="false"
                             android:textColor="@android:color/white"
                             android:textCursorDrawable="@null"
                             android:textSize="@dimen/general_button_text_size"
-                            tools:text="Welcome\n shashadhar_das@trimble.com"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            tools:text="Welcome\n shashadhar_das@trimble.com" />
                     </LinearLayout>
 
 
@@ -68,11 +72,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/login_button_spacing" />
 
+                    <!--access token layout-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <!--access token label-->
                         <TextView
                             android:id="@+id/accessTokenLbl"
                             android:layout_width="0dp"
@@ -81,24 +87,24 @@
                             android:ems="10"
                             android:fontFamily="sans-serif"
                             android:singleLine="true"
-                            android:text="Access Token"
+                            android:text="@string/access_token"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/general_button_text_size" />
 
+                        <!--access token value-->
                         <TextView
                             android:id="@+id/accessToken"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/login_edit_text_height"
                             android:layout_weight="2"
                             android:background="@android:color/white"
+                            android:ellipsize="marquee"
                             android:ems="10"
                             android:enabled="false"
                             android:fontFamily="sans-serif"
-                            android:ellipsize="marquee"
-                            android:marqueeRepeatLimit="marquee_forever"
                             android:gravity="center"
-                            android:hint="Access Token"
-                            android:imeOptions="flagNoExtractUi"
+                            android:hint="@string/access_token"
+                            android:marqueeRepeatLimit="marquee_forever"
                             android:singleLine="true"
                             android:textColor="@android:color/black"
                             android:textCursorDrawable="@null"
@@ -110,11 +116,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/login_button_spacing" />
 
+                    <!--refresh token layout-->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
+                        <!--refresh token label-->
                         <TextView
                             android:id="@+id/refreshTokenLbl"
                             android:layout_width="0dp"
@@ -123,10 +131,11 @@
                             android:ems="10"
                             android:fontFamily="sans-serif"
                             android:singleLine="true"
-                            android:text="Refresh Token"
+                            android:text="@string/refresh_token"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/general_button_text_size" />
 
+                        <!--refresh access token value-->
                         <TextView
                             android:id="@+id/refreshToken"
                             android:layout_width="0dp"
@@ -134,13 +143,12 @@
                             android:layout_weight="2"
                             android:background="@android:color/white"
                             android:ellipsize="marquee"
-                            android:marqueeRepeatLimit="marquee_forever"
                             android:ems="10"
-                            android:fontFamily="sans-serif"
                             android:enabled="false"
+                            android:fontFamily="sans-serif"
                             android:gravity="center"
-                            android:hint="Refresh Token"
-                            android:imeOptions="flagNoExtractUi"
+                            android:hint="@string/refresh_token"
+                            android:marqueeRepeatLimit="marquee_forever"
                             android:singleLine="true"
                             android:textColor="@android:color/black"
                             android:textCursorDrawable="@null"
@@ -152,6 +160,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/login_button_spacing" />
 
+                    <!--button container-->
                     <LinearLayout
                         android:id="@+id/login_fragment_container"
                         android:layout_width="match_parent"
@@ -159,18 +168,20 @@
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
+
                         <LinearLayout
                             android:id="@+id/login_button_container"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical" />
 
+                        <!--refresh access token button-->
                         <Button
-                            android:id="@+id/login"
+                            android:id="@+id/refresh"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/login_edit_text_height"
                             android:background="@android:color/white"
-                            android:text="Refresh"
+                            android:text="@string/refresh_token"
                             android:textAllCaps="false"
                             android:textSize="@dimen/general_button_text_size" />
 
@@ -179,19 +190,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/login_button_spacing" />
 
+                        <!--logout button-->
                         <Button
                             android:id="@+id/logout"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/login_edit_text_height"
                             android:background="@android:color/white"
-                            android:text="Logout"
+                            android:text="@string/logout"
                             android:textAllCaps="false"
                             android:textSize="@dimen/general_button_text_size" />
 
                     </LinearLayout>
+
                 </LinearLayout>
 
             </RelativeLayout>
+
         </ScrollView>
 
     </RelativeLayout>

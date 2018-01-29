@@ -2,7 +2,6 @@ package tidapp.trimble.Login;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -103,9 +102,24 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
-        binding.login.setOnClickListener(view -> loginButtonTap(view));
+        binding.login.setOnClickListener(this::loginButtonTap);
         return binding.getRoot();
     }
+
+    /**
+     * Called when the fragment is no longer in use.  This is called
+     * after {@link #onStop()} and before {@link #onDetach()}.
+     */
+    @Override
+    public void onDestroy() {
+        try {
+            super.onDestroy();
+            mPresenter.unsubscribe();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //endregion lifecycle methods
 
 
@@ -113,40 +127,46 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
     /**
      * Handles login button tap
+     *
      * @param view view taped
      */
+    @SuppressWarnings("unused")
     public void loginButtonTap(View view) {
-        if(validateCredentials()) {
+        if (validateCredentials()) {
             progressDialog = ProgressDialog.show(getActivity(), "Login", "Signing in...", true);
-            mPresenter.loginUser(binding.editDriverID.getText().toString(), binding.editPassword.getText().toString());
+            mPresenter.loginUser(binding.email.getText().toString(), binding.editPassword.getText().toString());
         }
     }
 
     /**
      * validates the credentials entered
+     *
      * @return true or false
      */
-    private boolean validateCredentials(){
+    private boolean validateCredentials() {
         //return value
-        boolean validCredential=false;
+        boolean validCredential = false;
 
-        if(null!= binding){
-            String email=binding.editDriverID.getText().toString();
-            String password=binding.editPassword.getText().toString();
-            if(Util.checkValidEmail(email)){
-                if(TextUtils.isEmpty(password)){
-                 binding.editPassword.setError("Password is empty");
-                }else{
-                    validCredential=true;
+        try {
+            if (null != binding) {
+                String email = binding.email.getText().toString();
+                String password = binding.editPassword.getText().toString();
+                if (Util.checkValidEmail(email)) {
+                    if (TextUtils.isEmpty(password)) {
+                        binding.editPassword.setError(getString(R.string.password_empty));
+                    } else {
+                        validCredential = true;
+                    }
+
+                } else {
+                    binding.email.setError(getString(R.string.invalid_email));
                 }
-
-            }else{
-                binding.editDriverID.setError("Not a valid email");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return validCredential;
     }
-
 
 
     //region LoginContract.View interface method implementation
@@ -158,23 +178,24 @@ public class LoginFragment extends Fragment implements LoginContract.View {
      */
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
-        // 1. Instantiate an AlertDialog.Builder with its constructor
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(message).setTitle("Signin Failed");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.dismiss();
-            }
-        });
+        try {
+            Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+            // 1. Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(message).setTitle(R.string.signin_failed);
+            builder.setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
 
-        AlertDialog dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.show();
+            AlertDialog dialog = builder.create();
+            dialog.setCancelable(false);
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Sets the presenter
+     *
      * @param presenter Presenter
      */
     @Override
@@ -199,10 +220,14 @@ public class LoginFragment extends Fragment implements LoginContract.View {
      */
     @Override
     public void launchHomeActivity(@NonNull LoginResponse loginResponse) {
-        Intent intent = new Intent(getActivity(), HomeActivity.class);
-        intent.putExtra(HomeActivity.EXTRA_LOGIN_INFO, loginResponse);
-        startActivity(intent);
-        getActivity().finish();
+        try {
+            Intent intent = new Intent(getActivity(), HomeActivity.class);
+            intent.putExtra(HomeActivity.EXTRA_LOGIN_INFO, loginResponse);
+            startActivity(intent);
+            getActivity().finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     //endregion LoginContract.View interface method implementation
 

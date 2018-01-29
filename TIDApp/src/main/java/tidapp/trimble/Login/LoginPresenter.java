@@ -46,6 +46,7 @@ public class LoginPresenter implements LoginContract.Presenter {
      * @param networkService service reference
      * @param view           View for the presenter
      */
+    @SuppressWarnings("WeakerAccess")
     public LoginPresenter(NetworkService networkService, LoginContract.View view) {
         service = networkService;
         mLoginView = view;
@@ -95,11 +96,13 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                         @Override
                         public void onSubscribe(Disposable d) {
+                            // TODO: 29-Jan-18 manage disposable object
                             Log.e("Log in response", "onSubscribe");
                         }
 
                         @Override
                         public void onNext(LoginResponse loginResponse) {
+                            // TODO: 29-Jan-18 save session
                             Log.e("Log in response", loginResponse.toString());
                             if (null != mLoginView) {
                                 mLoginView.hideProgressDialog();

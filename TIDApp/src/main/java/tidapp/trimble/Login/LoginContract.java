@@ -19,6 +19,7 @@ public interface LoginContract {
      * this interface should be implemented by the view
      */
     interface View extends BaseView<Presenter> {
+
         /**
          * Hides the progress dialog
          */
@@ -36,7 +37,7 @@ public interface LoginContract {
          *
          * @param message message to be shown
          */
-        @SuppressWarnings("unused")
+        @SuppressWarnings({"unused", "SameParameterValue"})
         void showMessage(String message);
 
     }

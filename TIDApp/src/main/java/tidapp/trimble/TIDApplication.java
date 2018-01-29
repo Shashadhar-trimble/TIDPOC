@@ -14,11 +14,13 @@ public class TIDApplication extends Application {
     /**
      * Application id used for TID integration
      */
+    // TODO: 29-Jan-18 Move to build config
     public static String applicationID = "Snhy2tWj2Nf8boxA9UzZdNQmwiAa";
 
     /**
      * Application secret used for TID integration
      */
+    // TODO: 29-Jan-18 Mover to build config
     public static String clientSecret = "dkXKjfBTJpZfhvytf_ICORZ8V88a";
     //endregion constants
 

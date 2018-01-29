@@ -10,8 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import tidapp.trimble.Login.LoginActivity;
 import tidapp.trimble.Login.LoginResponse;
-import tidapp.trimble.LoginActivity;
 import tidapp.trimble.R;
 import tidapp.trimble.databinding.ActivityHomeBinding;
 import tidapp.trimble.network.NetworkService;
@@ -80,6 +80,20 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
             e.printStackTrace();
         }
     }
+
+    /**
+     * Destroy all fragments and loaders.
+     */
+    @Override
+    protected void onDestroy() {
+        try {
+            super.onDestroy();
+            mPresenter.unsubscribe();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //endregion life cycle methods
 
     //region private methods
@@ -89,14 +103,14 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
         try {
             homeBinding.accessToken.setText(loginResponse.getAccessToken());
             homeBinding.refreshToken.setText(loginResponse.getRefreshToken());
-            homeBinding.email.setText("Welcome\n" + loginResponse.getEmail());
-            homeBinding.login.setOnClickListener(view -> {
-                progressDialog = ProgressDialog.show(HomeActivity.this, "Login", "Refreshing Token...", true);
+            homeBinding.email.setText(getString(R.string.welcome) + loginResponse.getEmail());
+            homeBinding.refresh.setOnClickListener(view -> {
+                progressDialog = ProgressDialog.show(HomeActivity.this, getString(R.string.login), getString(R.string.refreshing_token), true);
                 mPresenter.refreshAccessToken(loginResponse.getRefreshToken());
             });
             homeBinding.logout.setOnClickListener(view -> {
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
-                finish();
+                progressDialog = ProgressDialog.show(HomeActivity.this, getString(R.string.logout), getString(R.string.logging_out), true);
+                mPresenter.logoutUser(loginResponse.getAccessToken());
             });
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,8 +152,8 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             // 1. Instantiate an AlertDialog.Builder with its constructor
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setMessage(message).setTitle("Refresh Failed");
-            builder.setPositiveButton("OK", (dialog, id) -> dialog.dismiss());
+            builder.setMessage(message).setTitle(R.string.refresh_token_failed);
+            builder.setPositiveButton(R.string.ok, (dialog, id) -> dialog.dismiss());
             AlertDialog dialog = builder.create();
             dialog.setCancelable(false);
             dialog.show();
@@ -165,5 +179,20 @@ public class HomeActivity extends AppCompatActivity implements HomeContract.View
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Launch login activity
+     */
+    @Override
+    public void launchLoginActivity() {
+        try {
+            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+            finish();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //endregion interface HomeContract.View implementation
 }

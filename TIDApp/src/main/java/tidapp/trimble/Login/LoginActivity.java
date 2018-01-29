@@ -1,10 +1,9 @@
-package tidapp.trimble;
+package tidapp.trimble.Login;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import tidapp.trimble.Login.LoginFragment;
-import tidapp.trimble.Login.LoginPresenter;
+import tidapp.trimble.R;
 import tidapp.trimble.network.NetworkService;
 
 /**

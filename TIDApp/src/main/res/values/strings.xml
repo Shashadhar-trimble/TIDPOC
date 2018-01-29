@@ -1,3 +1,23 @@
 <resources>
+    <!--App name-->
     <string name="app_name">TID POC</string>
+
+    <!--home activity related strings-->
+    <string name="access_token">Access Token</string>
+    <string name="refresh_token">Refresh Token</string>
+    <string name="refresh">Refresh</string>
+    <string name="logout">Logout</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="welcome">Welcome\n</string>
+    <string name="refreshing_token">Refreshing Token…</string>
+    <string name="logging_out">Logging out…</string>
+    <string name="refresh_token_failed">Refresh access token Failed</string>
+    <string name="ok">OK</string>
+
+    <!--Login activity related strings-->
+    <string name="password_empty">Password is empty</string>
+    <string name="signin_failed">Signin Failed</string>
+    <string name="invalid_email">Not a valid email</string>
 </resources>

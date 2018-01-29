@@ -4,6 +4,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -54,5 +55,10 @@ public interface NetworkAPI {
     Observable<LoginResponse> refreshToken(@HeaderMap Map<String, String> headers, @Field("grant_type") String grantType,
                                            @Field("scope") String scope, @Field("refresh_token") String refreshToken,
                                            @Field("redirect_uri") String redirectUri, @Field("tenantDomain") String tenantDomain);
+
+    @SuppressWarnings("SameParameterValue")
+    @FormUrlEncoded
+    @POST("/revoke")
+    Observable<Response<Void>> userLogout(@HeaderMap Map<String, String> headers, @Field("token_type_hint") String tokenType, @Field("token") String accessToken);
 
 }

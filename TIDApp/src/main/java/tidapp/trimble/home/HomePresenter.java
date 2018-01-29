@@ -1,5 +1,6 @@
 package tidapp.trimble.home;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
 import tidapp.trimble.Login.LoginResponse;
 import tidapp.trimble.TIDApplication;
 import tidapp.trimble.network.NetworkService;
@@ -24,6 +26,11 @@ public class HomePresenter implements HomeContract.Presenter {
     //region member variables
 
     /**
+     * Used for logging
+     */
+    private static String TAG = HomePresenter.class.getSimpleName();
+
+    /**
      * Used to store service reference
      */
     private NetworkService service;
@@ -36,14 +43,15 @@ public class HomePresenter implements HomeContract.Presenter {
 
 
     //region constructor
+
     /**
      * Constructor to create presenter
      *
      * @param networkService service reference
      * @param view           View for the presenter
      */
+    @SuppressWarnings("WeakerAccess")
     public HomePresenter(NetworkService networkService, HomeContract.View view) {
-        //networkService.changeBaseurl("https://api-stg.trimble.com/");
         service = networkService;
         mHomeView = view;
         mHomeView.setPresenter(this);
@@ -92,12 +100,14 @@ public class HomePresenter implements HomeContract.Presenter {
                     .subscribe((new Observer<LoginResponse>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            Log.e("Log in response", "onSubscribe");
+                            // TODO: 29-Jan-18 manage disposable object
+                            Log.e(TAG, "onSubscribe");
                         }
 
                         @Override
                         public void onNext(LoginResponse loginResponse) {
-                            Log.e("Access token retrieved", loginResponse.toString());
+                            // TODO: 29-Jan-18 save session
+                            Log.e(TAG, loginResponse.toString());
                             if (null != mHomeView) {
                                 mHomeView.hideProgressDialog();
                                 mHomeView.setUserInfo(loginResponse);
@@ -107,7 +117,7 @@ public class HomePresenter implements HomeContract.Presenter {
                         @Override
                         public void onError(Throwable e) {
                             e.printStackTrace();
-                            Log.e("Log in response", "Error");
+                            Log.e("TAG", "Error");
                             if (null != mHomeView) {
                                 mHomeView.hideProgressDialog();
                                 mHomeView.showMessage("We got some error in refreshing the token.");
@@ -116,7 +126,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
                         @Override
                         public void onComplete() {
-                            Log.e("Log in response", "Complete");
+                            Log.e("TAG", "Complete");
                         }
                     }));
 
@@ -124,6 +134,59 @@ public class HomePresenter implements HomeContract.Presenter {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Logs out user
+     *
+     * @param accessToken access token of the user
+     */
+    @Override
+    public void logoutUser(@NonNull String accessToken) {
+        try {
+            Map<String, String> headers = new HashMap<>();
+            String clientSecret = TIDApplication.applicationID + ":" + TIDApplication.clientSecret;
+            String base64EncodedAuthorization = "Basic " + Util.toBase64String(clientSecret);
+            headers.put("Authorization", base64EncodedAuthorization);
+            headers.put("Content-Type", "application/x-www-form-urlencoded");
+
+            service.getAPI().userLogout(headers, "access_token", accessToken)
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe((new Observer<Response<Void>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            Log.e("TAG", "onSubscribe");
+                        }
+
+                        @Override
+                        public void onNext(Response<Void> response) {
+                            if (null != mHomeView) {
+                                mHomeView.hideProgressDialog();
+                                mHomeView.launchLoginActivity();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            Log.e("TAG", "Error");
+                            if (null != mHomeView) {
+                                mHomeView.hideProgressDialog();
+                                mHomeView.showMessage("We got some error in log out.");
+                            }
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            Log.e("TAG", "Complete");
+                        }
+                    }));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //endregion interface HomeContract.Presenter method implementation
 
 }
