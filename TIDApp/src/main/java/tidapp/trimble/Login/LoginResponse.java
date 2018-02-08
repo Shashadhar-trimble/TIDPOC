@@ -44,12 +44,12 @@ public class LoginResponse implements Parcelable {
     /**
      * Used to store email
      */
-    private String email;
+    private String mEmail;
 
     /**
      * Used to store password
      */
-    private String password;
+    private String mPassword;
     //endregion member variables
 
 
@@ -61,7 +61,7 @@ public class LoginResponse implements Parcelable {
      * @return email
      */
     public String getEmail() {
-        return email;
+        return mEmail;
     }
 
     /**
@@ -70,7 +70,7 @@ public class LoginResponse implements Parcelable {
      * @param email email to set
      */
     public void setEmail(String email) {
-        this.email = email;
+        this.mEmail = email;
     }
 
     /**
@@ -79,7 +79,7 @@ public class LoginResponse implements Parcelable {
      * @return password
      */
     public String getPassword() {
-        return password;
+        return mPassword;
     }
 
     /**
@@ -89,7 +89,7 @@ public class LoginResponse implements Parcelable {
      */
     @SuppressWarnings("WeakerAccess")
     public void setPassword(String password) {
-        this.password = password;
+        this.mPassword = password;
     }
 
     /**
@@ -193,8 +193,8 @@ public class LoginResponse implements Parcelable {
         dest.writeValue(this.mExpiresIn);
         dest.writeString(this.mRefreshToken);
         dest.writeString(this.mTokenType);
-        dest.writeString(this.email);
-        dest.writeString(this.password);
+        dest.writeString(this.mEmail);
+        dest.writeString(this.mPassword);
     }
 
     /**
@@ -208,8 +208,8 @@ public class LoginResponse implements Parcelable {
         this.mExpiresIn = (Long) in.readValue(Long.class.getClassLoader());
         this.mRefreshToken = in.readString();
         this.mTokenType = in.readString();
-        this.email = in.readString();
-        this.password = in.readString();
+        this.mEmail = in.readString();
+        this.mPassword = in.readString();
     }
 
     /**
